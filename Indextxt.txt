@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daryl Tan - Engineering Portfolio</title>
+    <title>DarylPortfolio</title>
     <style>
         * {
             margin: 0;
@@ -42,10 +42,7 @@
         .logo-text {
             font-size: 2.5rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #ff6b35, #f7931e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
@@ -107,6 +104,13 @@
             overflow: hidden;
             border: 4px solid #ff6b35;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         .profile-img img {
@@ -126,6 +130,12 @@
             color: #7f8c8d;
             font-size: 1rem;
             margin-bottom: 15px;
+        }
+
+        .profile-status {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 4px;
         }
 
         .contact-info {
@@ -153,6 +163,50 @@
 
         .contact-info a:hover {
             text-decoration: underline;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #e55a2b, #e8841a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #0077b5, #005885);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #005885, #004666);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 119, 181, 0.4);
         }
 
         .main-content {
@@ -245,68 +299,40 @@
             margin: 20px 0;
         }
 
-        .project-image-placeholder {
+        .project-image {
             aspect-ratio: 1;
             background: #f8f9fa;
-            border: 2px dashed #ddd;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 20px;
-            transition: border-color 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .project-image-placeholder:hover {
-            border-color: #ff6b35;
+        .project-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
-        .project-image-placeholder img {
+        .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .video-placeholder {
-            background: #f8f9fa;
-            border: 2px dashed #ddd;
             border-radius: 10px;
-            padding: 40px;
-            text-align: center;
+        }
+
+        .video-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
             margin: 20px 0;
-            color: #777;
         }
 
-        .video-placeholder h4 {
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .video-placeholder video {
+        .video-container video {
             width: 100%;
             max-width: 600px;
             border-radius: 10px;
-            margin-top: 15px;
-        }
-
-        .upload-btn {
-            background: #ff6b35;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            transition: background 0.3s ease;
-        }
-
-        .upload-btn:hover {
-            background: #e55a2b;
+            display: block;
+            margin: 0 auto;
         }
 
         .achievements {
@@ -329,6 +355,63 @@
 
         .achievements li {
             margin-bottom: 5px;
+        }
+
+        /* Modal Styles for Image Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+			
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 10px;
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .modal-caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
         }
 
         @media (max-width: 768px) {
@@ -363,6 +446,10 @@
 
             .sidebar {
                 position: static;
+            }
+
+            .modal-content {
+                width: 90%;
             }
         }
 
@@ -399,14 +486,13 @@
         <div class="nav-container">
             <div class="logo">
                 <div>
-                    <div class="logo-text">Daryl Tan</div>
-                    <div class="tagline">Engineering Portfolio</div>
+                    <div class="logo-text">Portfolio</div>
+                    <div class="tagline"></div>
                 </div>
             </div>
             <nav class="nav-links">
                 <a href="#projects">Projects</a>
                 <a href="#about">About</a>
-                <a href="#contact">Contact</a>
             </nav>
         </div>
     </header>
@@ -414,18 +500,27 @@
     <div class="container">
         <aside class="sidebar">
             <div class="profile-section">
-                <div class="profile-img">
+                <div class="profile-img" onclick="openModal('images/DarylPassportPhoto.jpg', 'Daryl Tan Profile Photo')">
                     <img src="images/DarylPassportPhoto.jpg" alt="Daryl Tan Profile Photo">
                 </div>
                 <div class="profile-name">Tan Peng Chuan Daryl</div>
-                <div class="profile-title">Maintenance Technician & Robotics Engineer</div>
+                <div class="profile-title">Undergraduate at SIT</div>
             </div>
 
             <div class="contact-info" id="contact">
                 <h3>Contact Information</h3>
                 <p><strong>Email:</strong><br><a href="mailto:tanpengchuandaryl@gmail.com">tanpengchuandaryl@gmail.com</a></p>
                 <p><strong>Experience:</strong><br>5+ Years in Singapore Armed Forces</p>
-                <p><strong>Specialization:</strong><br>Military Vehicle Maintenance & Robotics</p>
+                <p><strong>Specialization:</strong><br>Military Vehicle Maintenance</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="files/Daryl_Tan_Engineering_Resume.pdf" download class="btn btn-primary">
+                     Download Resume
+                </a>
+                <a href="https://www.linkedin.com/in/daryl-tan-peng-chuan/" target="_blank" class="btn btn-secondary">
+                     LinkedIn Profile
+                </a>
             </div>
 
             <div class="achievements">
@@ -460,16 +555,14 @@
                 </div>
 
                 <div class="project-description">
-                    <p>This project demonstrates advanced autonomous navigation capabilities using a Limo Robot platform integrated with ROS (Robot Operating System). The system implements sophisticated <span class="highlight">SLAM (Simultaneous Localization and Mapping)</span> techniques to enable real-time environment mapping and precise robot localization.</p>
+                    <p>This project demonstrates advanced autonomous navigation capabilities using a Limo Robot platform integrated with ROS (Robot Operating System). The system implements sophisticated SLAM (Simultaneous Localization and Mapping) techniques to enable real-time environment mapping and precise robot localization.</p>
                     
-                    <p>Key technical implementations include <span class="highlight">RTAB-Map</span> for robust 3D mapping, <span class="highlight">AMCL (Adaptive Monte Carlo Localization)</span> for probabilistic position estimation, and <span class="highlight">Extended Kalman Filter (EKF)</span> for sensor fusion and state estimation. The tf2 transformation library ensures accurate coordinate frame management throughout the navigation stack.</p>
+                    <p>Key technical implementations include RTAB-Map for robust 3D mapping, AMCL (Adaptive Monte Carlo Localization) for probabilistic position estimation, and Extended Kalman Filter (EKF) for sensor fusion and state estimation. The tf2 transformation library ensures accurate coordinate frame management throughout the navigation stack.</p>
                     
                     <p>The project showcases practical applications of robotics in real-world scenarios, combining theoretical knowledge with hands-on implementation of industry-standard navigation algorithms.</p>
                 </div>
 
-                <div class="video-placeholder">
-                    <h4>🎥 Project Demonstration Video</h4>
-                    <p>Robot navigation demonstration showing SLAM mapping and autonomous navigation</p>
+                <div class="video-container">
                     <video controls>
                         <source src="videos/project_vid1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -477,17 +570,17 @@
                 </div>
 
                 <div class="project-images">
-                    <div class="project-image-placeholder">
-                        <img src="images/project_img1.jpg" alt="Limo Robot Setup" onerror="this.style.display='none'; this.parentElement.innerHTML='Project Image 1<br>Limo Robot Setup';">
+                    <div class="project-image" onclick="openModal('images/project_img1.jpg', '')">
+                        <img src="images/project_img1.jpg" alt="Limo Robot Setup" onerror="this.style.display='none';">
                     </div>
-                    <div class="project-image-placeholder">
-                        <img src="images/project_img2.jpg" alt="Navigation Interface" onerror="this.style.display='none'; this.parentElement.innerHTML='Project Image 2<br>Navigation Interface';">
+                    <div class="project-image" onclick="openModal('images/project_img2.jpg', '')">
+                        <img src="images/project_img2.jpg" alt="Navigation Interface" onerror="this.style.display='none';">
                     </div>
-                    <div class="project-image-placeholder">
-                        <img src="images/project_img3.jpg" alt="SLAM Mapping Results" onerror="this.style.display='none'; this.parentElement.innerHTML='Project Image 3<br>SLAM Mapping Results';">
+                    <div class="project-image" onclick="openModal('images/project_img3.jpg', '')">
+                        <img src="images/project_img3.jpg" alt="SLAM Mapping Results" onerror="this.style.display='none';">
                     </div>
-                    <div class="project-image-placeholder">
-                        <img src="images/project_img4.jpg" alt="Robot in Action" onerror="this.style.display='none'; this.parentElement.innerHTML='Project Image 4<br>Robot in Action';">
+                    <div class="project-image" onclick="openModal('images/project_img4.jpg', '')">
+                        <img src="images/project_img4.jpg" alt="Robot in Action" onerror="this.style.display='none';">
                     </div>
                 </div>
             </section>
@@ -495,16 +588,23 @@
             <section class="section" id="about">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-content">
-                    <p>I am a <span class="highlight">Maintenance Technician</span> with over 5 years of experience in the Singapore Armed Forces, specializing in both corrective and preventive maintenance of military amphibious vehicles.</p>
+                    <p>I am a Maintenance Technician with over 5 years of experience in the Singapore Armed Forces, specializing in both corrective and preventive maintenance of military amphibious vehicles.</p>
                     
-                    <p>My technical expertise was honed through rigorous training at <span class="highlight">OETI as an Automotive Basic Technician</span>, where I developed a strong foundation in mechanical systems and diagnostic procedures. I graduated in the <span class="highlight">top 10% of the Logistics Specialist Cadet Course</span>, earning the prestigious Silver Bayonet award for outstanding performance.</p>
+                    <p>My technical expertise was honed through rigorous training at OETI as an Automotive Basic Technician, where I developed a strong foundation in mechanical systems and diagnostic procedures. I graduated in the top 10% of the Logistics Specialist Cadet Course, earning the prestigious Silver Bayonet award for outstanding performance.</p>
                     
                     <p>Throughout my military service, I have consistently executed complex repairs under demanding operational conditions, providing critical support during overseas exercises and contributing to innovative maintenance solutions. My experience spans from routine preventive maintenance to complex troubleshooting and repair of sophisticated military vehicle systems.</p>
                     
-                    <p>Currently, I am expanding my technical skills into the field of robotics and autonomous systems, combining my mechanical expertise with cutting-edge technologies like ROS (Robot Operating System) and advanced navigation algorithms.</p>
+                    <p>Currently, I am further upgrading and expanding my theoretical and technical skills at the Singapore Institute of Technology (SIT), aiming to apply them in meaningful ways that contribute to making Singapore a better place.</p>
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="caption"></div>
     </div>
 
     <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
@@ -538,6 +638,37 @@
                 behavior: 'smooth'
             });
         }
+
+        // Modal functionality
+        function openModal(imageSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('caption');
+            
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            captionText.innerHTML = caption;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // Add subtle animations on scroll
         const observerOptions = {
